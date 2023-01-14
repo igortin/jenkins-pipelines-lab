@@ -22,41 +22,43 @@ pipeline{
                     }
                 }
             }
-            stage ("Build"){
-                steps {
-                    script {
-                        try {
-                            sh './mvnw package -D skipTests'
-                        }
-                        catch (ex) {
-                            echo "Error while generating JAR file"
-                            throw ex
-                        }
+        }
+        stage("Build"){
+            steps {
+                script {
+                    try {
+                        sh './mvnw package -D skipTests'
+                    }
+                    catch (ex) {
+                        echo "Error while generating JAR file"
+                        throw ex
                     }
                 }
             }
-            stage ("Deploy"){
-                input {
-                        message 'Deploy the application?'
-                    }                    
-                
-                steps {
-                    echo "Deploy..."
-                }
+        }
+        stage("Deploy"){
+            input {
+                    message 'Deploy the application?'
+                }                    
+            
+            steps {
+                echo "Deploy..."
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
+        }
+
+        post{
+            always{
+                echo "========always========"
+            }
+            success{
+                echo "========A executed successfully========"
+            }
+            failure{
+                echo "========A execution failed========"
             }
         }
     }
+
     post{
         always{
             echo "========always========"
