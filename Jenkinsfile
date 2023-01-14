@@ -25,13 +25,23 @@ pipeline{
                     steps {
                         script {
                             try {
-                                sg './mvnw package -D skipTests'
+                                sh './mvnw package -D skipTests'
                             }
                             catch (ex) {
                                 echo "Error while generating JAR file"
                                 throw ex
                             }
                         }
+                    }
+                }
+                 stage ("Deploy"){
+                    
+                    input {
+                            message 'Deploy the application?'
+                        }                    
+                    
+                    steps {
+                        echo "Deploy..."
                     }
                 }
             }
