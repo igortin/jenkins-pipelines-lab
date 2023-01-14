@@ -21,6 +21,19 @@ pipeline{
                         expression { return params.RUN_INTEGRATION_TESTS }
                     }
                 }
+                stage ("Build"){
+                    steps {
+                        script {
+                            try {
+                                sg './mvnw package -D skipTests'
+                            }
+                            catch (ex) {
+                                echo "Error while generating JAR file"
+                                throw ex
+                            }
+                        }
+                    }
+                }
             }
             post{
                 always{
