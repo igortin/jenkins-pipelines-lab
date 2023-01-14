@@ -10,7 +10,7 @@ pipeline{
             parallel {
                 stage("Unit tests"){
                     steps{
-                        sh ' ./mvnw test -D testGroups=unit.'
+                        sh './mvnw test -D testGroups=unit.'
                     }   
                 }
                 stage("Integration tests"){
@@ -24,7 +24,7 @@ pipeline{
             }
         }
         stage("Build"){
-            steps {
+            steps{
                 script {
                     try {
                         sh './mvnw package -D skipTests'
@@ -41,7 +41,7 @@ pipeline{
                     message 'Deploy the application?'
                 }                    
             
-            steps {
+            steps{
                 echo "Deploy..."
             }
         }
