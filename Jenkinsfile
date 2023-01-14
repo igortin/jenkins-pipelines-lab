@@ -21,28 +21,27 @@ pipeline{
                         expression { return params.RUN_INTEGRATION_TESTS }
                     }
                 }
-                stage ("Build"){
-                    steps {
-                        script {
-                            try {
-                                sh './mvnw package -D skipTests'
-                            }
-                            catch (ex) {
-                                echo "Error while generating JAR file"
-                                throw ex
-                            }
+            }
+            stage ("Build"){
+                steps {
+                    script {
+                        try {
+                            sh './mvnw package -D skipTests'
+                        }
+                        catch (ex) {
+                            echo "Error while generating JAR file"
+                            throw ex
                         }
                     }
                 }
-                 stage ("Deploy"){
-                    
-                    input {
-                            message 'Deploy the application?'
-                        }                    
-                    
-                    steps {
-                        echo "Deploy..."
-                    }
+            }
+            stage ("Deploy"){
+                input {
+                        message 'Deploy the application?'
+                    }                    
+                
+                steps {
+                    echo "Deploy..."
                 }
             }
             post{
